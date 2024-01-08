@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import Layout from './Component/Layout/Layout';
+import About from './Pages/About';
+import Home from './Pages/ Home';
+import Cart from './Component/Cart/Cart';
+import ProductID from './Pages/ProductID';
+import { useState } from 'react';
 
 function App() {
+  const [count,setCount]=useState(0)
+  
+  const incrementCart =()=>{
+    setCount(count +1)
+  }
+  const [cartData,setCartData]=useState([])
+   
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout count={count}/>}>
+        <Route index element={<Home/>}/>
+          <Route path='/about' element={<About/>}/>
+          <Route path='/cart' element={<Cart/>}/>
+          <Route path='/product/:id'element={<ProductID incrementCart={incrementCart} cartData={cartData} setCartData={setCartData}/>}/>
+
+        </Route>
+
+      </Routes>
+      
+    </BrowserRouter>
   );
 }
 
