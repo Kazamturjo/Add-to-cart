@@ -2,10 +2,10 @@ import React from 'react'
 import Navbar from '../Navbar/Navbar'
 import {Outlet} from 'react-router-dom'
 
-const Layout = ({count}) => {
+const Layout = ({cartData,setCartData}) => {
   return (
     <div>
-        <Navbar count={count}/>
+        <Navbar cartData={cartData} setCartData={setCartData}/>
         <Outlet/>
     </div>
   )

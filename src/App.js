@@ -7,21 +7,19 @@ import ProductID from './Pages/ProductID';
 import { useState } from 'react';
 
 function App() {
-  const [count,setCount]=useState(0)
+
   
-  const incrementCart =()=>{
-    setCount(count +1)
-  }
+
   const [cartData,setCartData]=useState([])
    
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout count={count}/>}>
+        <Route element={<Layout cartData={cartData} setCartData={setCartData}/>}>
         <Route index element={<Home/>}/>
           <Route path='/about' element={<About/>}/>
-          <Route path='/cart' element={<Cart/>}/>
-          <Route path='/product/:id'element={<ProductID incrementCart={incrementCart} cartData={cartData} setCartData={setCartData}/>}/>
+          <Route path='/cart' element={<Cart cartData={cartData} setCartData={setCartData}/>}/>
+          <Route path='/product/:id'element={<ProductID  cartData={cartData} setCartData={setCartData}/>}/>
 
         </Route>
 

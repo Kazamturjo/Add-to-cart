@@ -1,12 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Navbar = ({count}) => {
+const Navbar = ({cartData,setCartData}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    try {
+      const storedData = localStorage.getItem('cart');
+      if (storedData) {
+        // Attempt to parse the JSON string if it's not empty
+        setCartData(JSON.parse(storedData));
+      } else {
+        // If the stored data is empty or null, set a default value (e.g., an empty array)
+        setCartData([]);
+      }
+    } catch (error) {
+      console.error('Error parsing JSON from localStorage:', error);
+    
+      setCartData([]);
+    }
+  }, []);
 
   return (
     <nav className="bg-gray-500 p-4 ">
@@ -70,7 +87,7 @@ const Navbar = ({count}) => {
                 activeClassName="border-b-2 border-white "
               >
       <span className="absolute rounded-full bg-blue-500 text-white px-2 py-1 mt-2  right-0 transform translate-x-1/2 -translate-y-1/2">
-                {count}</span>
+                {cartData.length}</span>
                 cart
               </NavLink>
             </li>
